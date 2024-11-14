@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Films List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <a href="index.html" class="btn btn-secondary mb-3">Back to Home</a>
+        <h1>Actors</h1>
+        <div id="films-container">
+            <!-- Film table will be inserted here by JavaScript -->
+        </div>
+    </div>
+    <!-- Custom JS to import and render films -->
+    <script type="module">
+        import { transformation as data } from './transform.mjs';
+
+        const filmsContainer = document.getElementById('films-container');
+        const headers = Object.keys(data[0]);
+        const filmTemplate = `
+            <ul class="list-group">
+                ${data.map(item => `
+                    <li class="list-group-item">
+                        ${headers.map(header => `${header.charAt(0).toUpperCase() + header.slice(1)}: ${item[header]}`).join(' - ')}
+                    </li>
+                `).join('')}
+            </ul>
+        `;
+
+        filmsContainer.innerHTML = filmTemplate;
+    </script>
+</body>
+</html>
